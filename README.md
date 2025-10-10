@@ -4,7 +4,7 @@
 
 ## 在线访问
 
-🔗 **<a href="https://resume.percy.ren" target="_blank">https://resume.percy.ren</a>**
+🔗 **[https://resume.percy.ren](https://resume.percy.ren)**
 
 ## 功能特性
 
