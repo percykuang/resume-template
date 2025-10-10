@@ -1,0 +1,20 @@
+@import '@/styles/variables.less';
+
+.resumeForm {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.formContent {
+	flex: 1;
+	overflow-y: auto;
+
+	// 表单输入框字体大小
+	:global {
+		.ant-input,
+		.ant-input-textarea textarea {
+			font-size: 14px !important;
+		}
+	}
+}

@@ -14,7 +14,14 @@ export default defineConfig([
 		languageOptions: { globals: globals.browser }
 	},
 	tseslint.configs.recommended,
-	pluginReact.configs.flat.recommended,
+	{
+		...pluginReact.configs.flat.recommended,
+		settings: {
+			react: {
+				version: 'detect'
+			}
+		}
+	},
 	{
 		...prettierConfig,
 		plugins: {
