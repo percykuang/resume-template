@@ -2,6 +2,10 @@
 
 一个基于 React + TypeScript + Vite 的在线简历生成工具，支持 Markdown 编辑和 PDF 导出。
 
+## 在线访问
+
+🔗 **[https://resume.percy.ren](https://resume.percy.ren)**
+
 ## 功能特性
 
 - **实时预览**：左侧实时预览简历效果，右侧编辑个人信息和简历内容
