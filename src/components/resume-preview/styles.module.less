@@ -139,6 +139,12 @@
 	:global(p) {
 		margin: 8px 0;
 		text-align: justify;
+		white-space: pre-wrap; // 保留多个空格
+	}
+
+	// 列表项也支持多个空格
+	:global(li) {
+		white-space: pre-wrap;
 	}
 }
 
