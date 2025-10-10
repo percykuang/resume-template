@@ -66,14 +66,17 @@ pnpm preview
 简历内容支持以下 Markdown 语法：
 
 #### 一级标题（h1）
+
 用于大的章节标题，如"能力概述"、"项目经历"
 
 ```markdown
 # 能力概述
+
 # 项目经历
 ```
 
 #### 列表（li）
+
 用于能力列表或要点说明
 
 ```markdown
@@ -83,22 +86,27 @@ pnpm preview
 ```
 
 #### 二级标题（h2）
+
 用于项目名称或子章节标题
 
 ```markdown
 ## 飞书文档
+
 ## UI 组件库、图表库、脚手架、基础库
 ```
 
 #### 三级标题（h3）
+
 用于项目详情小节，如"项目简介"、"工作内容与成果"
 
 ```markdown
 ### 项目简介
+
 ### 工作内容与成果
 ```
 
 #### 段落（p）
+
 普通文本内容
 
 ```markdown
@@ -177,9 +185,9 @@ resume-template/
 ```typescript
 // src/utils/generateResume.ts
 export async function generateResume(
-  resumeData: ResumeSchema,
-  element: HTMLElement
-): Promise<void>
+	resumeData: ResumeSchema,
+	element: HTMLElement
+): Promise<void>;
 ```
 
 ### Markdown 渲染
@@ -224,7 +232,3 @@ pnpm lint
 ## License
 
 MIT
-
-## 贡献
-
-欢迎提交 Issue 和 Pull Request！
