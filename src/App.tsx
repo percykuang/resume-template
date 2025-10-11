@@ -10,11 +10,11 @@ import {
 import { DoubleLeftOutlined, ExportOutlined } from '@ant-design/icons';
 import { Button, ConfigProvider, Spin, theme } from 'antd';
 
-import styles from '@/app.module.less';
 import { INITIAL_RESUME_SCHEMA } from '@/data';
 import type { ResumeSchema } from '@/types/resume';
 
 import { DRAWER_WIDTH, ResumeDrawer, ResumePreview } from './components';
+import styles from './styles.module.less';
 
 // 懒加载 ResumeForm 组件，因为只有在打开 drawer 时才需要
 const ResumeForm = lazy(() => import('./components/resume-form'));
