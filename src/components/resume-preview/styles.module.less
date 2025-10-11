@@ -48,7 +48,8 @@
 
 .contactInfo {
 	display: flex;
-	gap: 40px;
+	flex-wrap: wrap;
+	gap: 10px 20px;
 }
 
 .contactItem {
@@ -145,6 +146,16 @@
 	// 列表项也支持多个空格
 	:global(li) {
 		white-space: pre-wrap;
+	}
+}
+
+// 移动端样式
+@media (max-width: 768px) {
+	.resumePreview {
+		width: 100%;
+		min-height: auto;
+		padding: 20px;
+		box-shadow: none;
 	}
 }
 

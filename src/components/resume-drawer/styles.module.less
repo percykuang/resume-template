@@ -33,4 +33,17 @@
 		background-color: @bg-gray-active;
 		color: @text-gray-active;
 	}
+
+	// 移动端样式：按钮贴合左边框并垂直居中
+	@media (max-width: 768px) {
+		left: 8px;
+		top: 50vh;
+		transform: translateY(-50%);
+		width: 40px;
+		height: 40px;
+		border-radius: 8px;
+		border: 1px solid @border-color;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+		z-index: 1001;
+	}
 }

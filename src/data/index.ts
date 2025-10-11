@@ -2,7 +2,7 @@ import type { ResumeSchema } from '@/types/resume';
 
 // 初始数据
 export const INITIAL_RESUME_SCHEMA: ResumeSchema = {
-	name: '欧阳浩',
+	name: '匡琳锋',
 	position: '高级前端工程师',
 	phone: '13689999999',
 	email: '13689999999@qq.com',
@@ -46,8 +46,6 @@ export const INITIAL_RESUME_SCHEMA: ResumeSchema = {
 ### 工作内容与成果
 
 - 主导 UI 组件库规范设计、与设计师共同推进 UED 方案落地,基于 material design 实现视觉系统
-
-
 - 参与 Iconpark 项目落地,实现图标集成、操作、多色等特性,并支持 React 组件化管理
 - 参与主导内部库开发脚手架实现,包含集成各类风险检测、基础模板现成以及常用脚手架命令等功能
 - 主导模文档编写,新人职培训,并能通过良好文档、基础物料快速融入团队并高效协同开发
@@ -80,5 +78,13 @@ export const INITIAL_RESUME_SCHEMA: ResumeSchema = {
 - 参与 Iconpark 项目落地,实现图标集成、操作、多色等特性,并支持 React 组件化管理
 - 参与主导内部库开发脚手架实现,包含集成各类风险检测、基础模板现成以及常用脚手架命令等功能
 - 主导模文档编写,新人职培训,并能通过良好文档、基础物料快速融入团队并高效协同开发
+
+# 学历专业
+
+本科 \\ 东华理工大学 \\ 软件工程
+
+# 英语水平
+
+英语四级，能够通过阅读前沿的英文文档快速学会新技术。
 `
 };

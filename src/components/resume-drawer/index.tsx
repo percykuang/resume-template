@@ -41,7 +41,7 @@ export default function ResumeDrawer({
 			mask={false}
 			maskClosable={false}
 			styles={{
-				body: { padding: '24px' }
+				body: { padding: '4px 24px 4px' }
 			}}
 			extra={extra}
 		>

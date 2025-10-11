@@ -75,3 +75,20 @@
 		}
 	}
 }
+
+// 移动端：取消缩放，移除 min-height
+@media (max-width: 768px) {
+	.app {
+		min-height: auto;
+	}
+
+	.previewPanel {
+		padding: 20px;
+	}
+
+	:global {
+		.resume-preview {
+			transform: none;
+		}
+	}
+}
