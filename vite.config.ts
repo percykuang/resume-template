@@ -14,38 +14,15 @@ export default defineConfig({
 	build: {
 		rollupOptions: {
 			output: {
-				manualChunks: (id) => {
-					// React 核心库
-					if (
-						id.includes('node_modules/react') ||
-						id.includes('node_modules/react-dom')
-					) {
-						return 'react-vendor';
-					}
-					// Ant Design 核心
-					if (id.includes('node_modules/antd')) {
-						return 'antd-vendor';
-					}
-					// Ant Design Icons
-					if (id.includes('@ant-design/icons')) {
-						return 'antd-icons-vendor';
-					}
-					// Markdown 渲染
-					if (id.includes('node_modules/markdown-it')) {
-						return 'markdown-vendor';
-					}
-					// html2canvas
-					if (id.includes('node_modules/html2canvas')) {
-						return 'html2canvas-vendor';
-					}
-					// jsPDF
-					if (id.includes('node_modules/jspdf')) {
-						return 'jspdf-vendor';
-					}
-					// 其他 node_modules
-					if (id.includes('node_modules')) {
-						return 'vendor';
-					}
+				manualChunks: {
+					// React 核心库单独打包
+					'react-vendor': ['react', 'react-dom'],
+					// Ant Design 组件库单独打包（包含 icons）
+					'antd-vendor': ['antd', '@ant-design/icons'],
+					// Markdown 渲染库单独打包
+					'markdown-vendor': ['markdown-it'],
+					// PDF 生成相关的重型库单独打包
+					'pdf-vendor': ['html2canvas', 'jspdf']
 				}
 			}
 		},

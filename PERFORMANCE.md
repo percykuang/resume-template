@@ -27,26 +27,33 @@
 **文件**：`vite.config.ts`
 
 改进了代码分割策略：
-- 拆分 Ant Design Icons 为独立包（从 122 KiB 拆出 21.74 KiB）
-- 分离 html2canvas 和 jsPDF 为独立包
-- 启用更激进的 Tree Shaking
+- React 核心库独立打包
+- Ant Design + Icons 合并打包（避免依赖问题）
+- Markdown 渲染独立打包
+- PDF 生成库（html2canvas + jsPDF）合并打包
 
 **实际效果**（构建后）：
 ```
-✓ index-B64SRc-y.js         2.12 kB │ gzip:   0.97 kB  (主入口)
-✓ antd-icons-vendor         21.74 kB │ gzip:   6.85 kB  (图标库)
-✓ markdown-vendor           48.74 kB │ gzip:  14.98 kB  (Markdown)
-✓ antd-vendor              166.34 kB │ gzip:  46.79 kB  (UI 组件)
-✓ react-vendor             189.55 kB │ gzip:  59.35 kB  (React 核心)
-✓ html2canvas-vendor       199.58 kB │ gzip:  46.04 kB  (Canvas 渲染)
-✓ jspdf-vendor             339.31 kB │ gzip: 108.28 kB  (PDF 生成)
-✓ vendor                   470.57 kB │ gzip: 168.79 kB  (其他依赖)
+✓ index-QQZm2M6a.js              2.15 kB │ gzip:   0.98 kB  (主入口)
+✓ generateResume-DOOuTz_L.js     2.53 kB │ gzip:   1.24 kB  (PDF懒加载)
+✓ react-vendor-RsqJS7wA.js      11.33 kB │ gzip:   4.00 kB  (React核心)
+✓ purify.es-biuSeZy2.js         22.28 kB │ gzip:   8.51 kB  (工具库)
+✓ markdown-vendor-Da9jtcUM.js  102.28 kB │ gzip:  44.16 kB  (Markdown)
+✓ index.es-C694XoBx.js         155.79 kB │ gzip:  51.06 kB  (RC组件)
+✓ index-DC07oqrt.js            189.48 kB │ gzip:  60.65 kB  (应用代码)
+✓ antd-vendor-BVMPxK4Y.js      377.71 kB │ gzip: 119.09 kB  (Ant Design)
+✓ pdf-vendor-Cb_SqvvT.js       584.92 kB │ gzip: 169.11 kB  (PDF生成-懒加载)
 ```
 
 **优势**：
 - 按需加载：PDF 导出功能已实现懒加载
 - 更好的缓存利用：核心代码变动不影响第三方库缓存
-- 并行下载：浏览器可同时下载多个小文件
+- 避免依赖问题：相关库合并打包，确保模块依赖完整性
+- 主入口仅 0.98 KB，极速加载
+
+**重要修复**：
+- 修复了过度分包导致的 "Cannot read properties of undefined (reading 'version')" 错误
+- 采用保守的分包策略，确保模块依赖关系完整
 
 ### 3. 代码压缩优化
 
