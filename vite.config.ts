@@ -16,7 +16,10 @@ export default defineConfig({
 			output: {
 				manualChunks: (id) => {
 					// React 核心库
-					if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+					if (
+						id.includes('node_modules/react') ||
+						id.includes('node_modules/react-dom')
+					) {
 						return 'react-vendor';
 					}
 					// Ant Design 核心
