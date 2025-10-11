@@ -209,19 +209,31 @@ export async function generateResume(
 ### 格式化代码
 
 ```bash
-pnpm prettier
+pnpm format
 ```
 
 ### 检查代码格式
 
 ```bash
-pnpm prettier:check
+pnpm format:check
 ```
 
 ### ESLint 检查
 
 ```bash
 pnpm lint
+```
+
+### ESLint 自动修复
+
+```bash
+pnpm lint:fix
+```
+
+### TypeScript 类型检查
+
+```bash
+pnpm type-check
 ```
 
 ## 浏览器兼容性
