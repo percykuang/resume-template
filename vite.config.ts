@@ -14,19 +14,50 @@ export default defineConfig({
 	build: {
 		rollupOptions: {
 			output: {
-				manualChunks: {
-					// React 核心库单独打包
-					'react-vendor': ['react', 'react-dom'],
-					// Ant Design 组件库单独打包
-					'antd-vendor': ['antd', '@ant-design/icons'],
-					// Markdown 渲染库单独打包
-					'markdown-vendor': ['markdown-it'],
-					// PDF 生成相关的重型库单独打包
-					'pdf-vendor': ['html2canvas', 'jspdf']
+				manualChunks: (id) => {
+					// React 核心库
+					if (id.includes('node_modules/react') || id.includes('node_modules/react-dom')) {
+						return 'react-vendor';
+					}
+					// Ant Design 核心
+					if (id.includes('node_modules/antd')) {
+						return 'antd-vendor';
+					}
+					// Ant Design Icons
+					if (id.includes('@ant-design/icons')) {
+						return 'antd-icons-vendor';
+					}
+					// Markdown 渲染
+					if (id.includes('node_modules/markdown-it')) {
+						return 'markdown-vendor';
+					}
+					// html2canvas
+					if (id.includes('node_modules/html2canvas')) {
+						return 'html2canvas-vendor';
+					}
+					// jsPDF
+					if (id.includes('node_modules/jspdf')) {
+						return 'jspdf-vendor';
+					}
+					// 其他 node_modules
+					if (id.includes('node_modules')) {
+						return 'vendor';
+					}
 				}
 			}
 		},
-		// 提高 chunk 大小警告阈值，避免不必要的警告
-		chunkSizeWarningLimit: 600
+		// 提高 chunk 大小警告阈值
+		chunkSizeWarningLimit: 600,
+		// 启用 CSS 代码分割
+		cssCodeSplit: true,
+		// 优化依赖预构建
+		target: 'es2015',
+		minify: 'terser',
+		terserOptions: {
+			compress: {
+				drop_console: true,
+				drop_debugger: true
+			}
+		}
 	}
 });
