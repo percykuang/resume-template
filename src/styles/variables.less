@@ -8,9 +8,12 @@
 @text-gray-active: #262626;
 @border-color: #e8e8e8;
 
-// A4 纸张尺寸
-@a4-width: 21cm;
-@a4-height: 29.7cm;
+// A4 纸尺寸常量 (px) - 使用像素单位以确保跨浏览器一致性
+// 计算公式：像素 = (毫米 ÷ 25.4) × 96 DPI
+// 宽度：(210mm ÷ 25.4) × 96 = 793.7 ≈ 794px
+// 高度：(297mm ÷ 25.4) × 96 = 1122.5 ≈ 1123px
+@a4-width: 794px;
+@a4-height: 1123px;
 
 // 字体
 @font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
