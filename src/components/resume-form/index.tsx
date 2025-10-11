@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { type FC, useCallback } from 'react';
 
 import { Form, Input } from 'antd';
 
@@ -12,12 +12,15 @@ interface ResumeFormProps {
 }
 
 const Index: FC<ResumeFormProps> = ({ data, onChange }) => {
-	const handleChange = (field: keyof ResumeSchema, value: string) => {
-		onChange({
-			...data,
-			[field]: value
-		});
-	};
+	const handleChange = useCallback(
+		(field: keyof ResumeSchema, value: string) => {
+			onChange({
+				...data,
+				[field]: value
+			});
+		},
+		[data, onChange]
+	);
 
 	return (
 		<div className={styles.resumeForm}>

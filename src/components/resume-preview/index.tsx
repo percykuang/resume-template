@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useMemo } from 'react';
 
 import {
 	CalendarOutlined,
@@ -23,14 +23,17 @@ const md = new MarkdownIt({
 
 const ResumePreview = forwardRef<HTMLDivElement, ResumePreviewProps>(
 	({ data }, ref) => {
-		// 将连续的空行转换为 <br/> 标签，用于控制 PDF 分页
-		const processedContent = (data.content || '').replace(
-			/\n\n\n+/g,
-			'\n\n' + '<br/>' + '\n\n'
-		);
+		// 使用 useMemo 缓存 markdown 渲染结果，避免不必要的重新渲染
+		const htmlContent = useMemo(() => {
+			// 将连续的空行转换为 <br/> 标签，用于控制 PDF 分页
+			const processedContent = (data.content || '').replace(
+				/\n\n\n+/g,
+				'\n\n<br/>\n\n'
+			);
 
-		// 将 markdown 转换为 HTML
-		const htmlContent = md.render(processedContent);
+			// 将 markdown 转换为 HTML
+			return md.render(processedContent);
+		}, [data.content]);
 
 		return (
 			<div ref={ref} className={`${styles.resumePreview} resume-preview`}>

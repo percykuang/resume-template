@@ -1,14 +1,6 @@
 import type { ResumeSchema } from '@/types/resume';
 
-// 初始数据
-export const INITIAL_RESUME_SCHEMA: ResumeSchema = {
-	name: '匡琳锋',
-	position: '高级前端工程师',
-	phone: '13689999999',
-	email: '13689999999@qq.com',
-	age: '27',
-	gender: '男',
-	content: `
+const INITIAL_RESUME_CONTENT = `
 # 能力概述
 
 - 熟练掌握 HTML、CSS、JavaScript、Typescript 以及 AOP、FP 等设计思想
@@ -86,5 +78,15 @@ export const INITIAL_RESUME_SCHEMA: ResumeSchema = {
 # 英语水平
 
 英语四级，能够通过阅读前沿的英文文档快速学会新技术。
-`
+`;
+
+// 初始数据
+export const INITIAL_RESUME_SCHEMA: ResumeSchema = {
+	name: '匡琳锋',
+	position: '高级前端工程师',
+	phone: '13689999999',
+	email: '13689999999@qq.com',
+	age: '27',
+	gender: '男',
+	content: INITIAL_RESUME_CONTENT
 };

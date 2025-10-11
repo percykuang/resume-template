@@ -1,15 +1,26 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+	Suspense,
+	lazy,
+	useCallback,
+	useEffect,
+	useRef,
+	useState
+} from 'react';
 
 import { DoubleLeftOutlined, ExportOutlined } from '@ant-design/icons';
-import { Button, ConfigProvider, theme } from 'antd';
+import { Button, ConfigProvider, Spin, theme } from 'antd';
 
-import styles from '@/App.module.less';
-import ResumeDrawer, { DRAWER_WIDTH } from '@/components/resume-drawer';
-import ResumeForm from '@/components/resume-form';
-import ResumePreview from '@/components/resume-preview';
+import styles from '@/app.module.less';
 import { INITIAL_RESUME_SCHEMA } from '@/data';
 import type { ResumeSchema } from '@/types/resume';
-import { generateResume } from '@/utils/generateResume';
+
+import { DRAWER_WIDTH, ResumeDrawer, ResumePreview } from './components';
+
+// 懒加载 ResumeForm 组件，因为只有在打开 drawer 时才需要
+const ResumeForm = lazy(() => import('./components/resume-form'));
+
+// 预览区偏移的临界窗口宽度
+const SHIFT_BREAKPOINT = 1800;
 
 function App() {
 	const [resumeData, setResumeData] = useState<ResumeSchema>(
@@ -18,27 +29,31 @@ function App() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const previewRef = useRef<HTMLDivElement>(null);
 
-	const handleExport = async () => {
-		if (previewRef.current) {
+	const handleExport = useCallback(async () => {
+		if (!previewRef.current) return;
+
+		try {
+			// 动态导入 generateResume，只在需要导出时加载
+			const { generateResume } = await import('@/utils/generateResume');
 			await generateResume(resumeData, previewRef.current);
+		} catch (error) {
+			// 这里可以使用 antd 的 message 或 notification 组件
+			console.error('导出失败:', error);
+			alert(error instanceof Error ? error.message : '生成简历失败，请重试');
 		}
-	};
+	}, [resumeData]);
 
 	// 根据窗口宽度决定是否需要偏移预览区
 	useEffect(() => {
 		const updateShift = () => {
 			const windowWidth = window.innerWidth;
 			// 当窗口宽度小于一定值时才需要偏移
-			const needsShift = drawerOpen && windowWidth < 1800;
+			const needsShift = drawerOpen && windowWidth < SHIFT_BREAKPOINT;
 
-			if (needsShift) {
-				document.documentElement.style.setProperty(
-					'--drawer-width',
-					`${DRAWER_WIDTH}px`
-				);
-			} else {
-				document.documentElement.style.setProperty('--drawer-width', '0px');
-			}
+			document.documentElement.style.setProperty(
+				'--drawer-width',
+				needsShift ? `${DRAWER_WIDTH}px` : '0px'
+			);
 		};
 
 		updateShift();
@@ -79,7 +94,15 @@ function App() {
 						</Button>
 					}
 				>
-					<ResumeForm data={resumeData} onChange={setResumeData} />
+					<Suspense
+						fallback={
+							<div style={{ textAlign: 'center', padding: '50px' }}>
+								<Spin size="large" tip="加载中..." />
+							</div>
+						}
+					>
+						<ResumeForm data={resumeData} onChange={setResumeData} />
+					</Suspense>
 				</ResumeDrawer>
 
 				{!drawerOpen && (

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { DoubleRightOutlined } from '@ant-design/icons';
 import { Drawer } from 'antd';
@@ -18,14 +18,14 @@ interface ResumeDrawerProps {
 
 export const DRAWER_WIDTH = 500; // drawer 的宽度
 
-export default function ResumeDrawer({
+const Index: FC<ResumeDrawerProps> = ({
 	open,
 	onClose,
 	title = '简历编辑',
 	width = DRAWER_WIDTH,
 	extra,
 	children
-}: ResumeDrawerProps) {
+}) => {
 	// 使用内部的 hooks 处理交互逻辑
 	useDrawerScrollLock(open);
 	useClickOutside(open, onClose);
@@ -56,4 +56,6 @@ export default function ResumeDrawer({
 			{children}
 		</Drawer>
 	);
-}
+};
+
+export default Index;
