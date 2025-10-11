@@ -8,13 +8,30 @@ export async function generateResume(
 	element: HTMLElement
 ): Promise<void> {
 	try {
-		// 使用 html2canvas 将 DOM 元素转换为 canvas
-		const canvas = await html2canvas(element, {
+		// 克隆元素，避免影响页面显示
+		const clonedElement = element.cloneNode(true) as HTMLElement;
+
+		// 设置克隆元素的样式：固定 A4 尺寸
+		clonedElement.style.position = 'absolute';
+		clonedElement.style.left = '-9999px';
+		clonedElement.style.width = '21cm';
+		clonedElement.style.minHeight = '29.7cm';
+		clonedElement.style.padding = '40px 50px';
+		clonedElement.style.backgroundColor = '#ffffff';
+
+		// 添加到 body
+		document.body.appendChild(clonedElement);
+
+		// 使用 html2canvas 将克隆的元素转换为 canvas
+		const canvas = await html2canvas(clonedElement, {
 			scale: 2, // 提高分辨率
 			useCORS: true,
 			logging: false,
 			backgroundColor: '#ffffff'
 		});
+
+		// 移除克隆的元素
+		document.body.removeChild(clonedElement);
 
 		// A4 纸尺寸 (mm)
 		const pageWidth = 210;
