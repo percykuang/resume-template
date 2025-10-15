@@ -1,18 +1,8 @@
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 
+import { A4_HEIGHT, A4_HEIGHT_PX, A4_WIDTH, A4_WIDTH_PX } from '@/constants';
 import type { ResumeSchema } from '@/types/resume';
-
-// A4 纸尺寸常量 (mm)
-const A4_WIDTH = 210;
-const A4_HEIGHT = 297;
-
-// A4 纸尺寸常量 (px) - 使用像素单位以确保跨浏览器一致性
-// 计算公式：像素 = (毫米 ÷ 25.4) × 96 DPI
-// 宽度：(210mm ÷ 25.4) × 96 = 793.7 ≈ 794px
-// 高度：(297mm ÷ 25.4) × 96 = 1122.5 ≈ 1123px
-const A4_WIDTH_PX = 794;
-const A4_HEIGHT_PX = 1123;
 
 // 导出配置
 const EXPORT_CONFIG = {
@@ -94,6 +84,8 @@ function configureClonedElement(element: HTMLElement): void {
 	element.style.overflow = 'visible';
 	element.style.maxWidth = `${A4_WIDTH_PX}px`;
 	element.style.margin = '0';
+	// 添加标记类名，用于隐藏分页线
+	element.classList.add('exporting');
 }
 
 /**
