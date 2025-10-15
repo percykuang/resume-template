@@ -11,6 +11,8 @@
 - **实时预览**：左侧实时预览简历效果，右侧编辑个人信息和简历内容
 - **Markdown 支持**：使用 Markdown 语法编写简历内容，支持标题、列表等格式
 - **PDF 导出**：一键导出为高质量 PDF 文件，文件名自动按照"职位-姓名-手机号"格式命名
+- **PDF 分页预览**：预览区域实时显示 PDF 分页位置，所见即所得
+- **隐私保护**：内置示例模板数据，保护个人隐私信息
 - **响应式布局**：支持不同屏幕尺寸，编辑面板可收起/展开
 - **优雅交互**：抽屉式编辑面板，支持点击外部关闭，鼠标进入时禁止页面滚动
 
@@ -171,7 +173,12 @@ resume-template/
 │   │   └── resume-preview/  # 简历预览组件
 │   │       ├── index.tsx
 │   │       └── styles.module.less
+│   ├── constants/           # 常量定义
+│   │   └── index.ts         # A4 尺寸等常量
 │   ├── data/                # 初始数据
+│   │   ├── index.ts         # 数据入口
+│   │   ├── self.ts          # 个人简历数据（已注释）
+│   │   └── template.ts      # 示例模板数据
 │   ├── styles/              # 全局样式
 │   ├── types/               # TypeScript 类型定义
 │   ├── utils/               # 工具函数
@@ -198,7 +205,7 @@ resume-template/
 
 ## 核心功能实现
 
-### PDF 生成
+### PDF 生成与分页预览
 
 使用 `html2canvas` 将 DOM 转换为 Canvas，再通过 `jsPDF` 生成 PDF 文件。支持多页 PDF 自动分页，并针对不同浏览器（特别是 Safari）进行了优化。
 
@@ -215,9 +222,12 @@ export async function generateResume(
 **技术要点：**
 
 - 自动计算页面高度和分页位置
+- 实时显示 PDF 分页线，导出时自动隐藏
+- 使用 ResizeObserver 监听内容变化，动态更新分页
 - 针对移动端和 Safari 浏览器优化渲染尺寸
 - 智能生成文件名：`职位-姓名-手机号.pdf`
 - 支持高清输出（2x scale）
+- 统一的 A4 尺寸常量管理（src/constants/index.ts:1）
 
 ### Markdown 渲染
 
@@ -387,16 +397,6 @@ pnpm prepare
 2. 代码格式符合 Prettier 规范：`pnpm format:check`
 3. TypeScript 类型检查通过：`pnpm type-check`
 4. 提交信息符合 Conventional Commits 规范
-
-## 更新日志
-
-查看最近的提交记录了解项目更新：
-
-- **fix**: 修复 Safari 浏览器导出 PDF 时分页不对的问题
-- **chore**: 新增项目基础配置（ESLint、Prettier、Husky）
-- **feat**: 配置了 commitlint 和 pre-commit 执行的脚本
-- **feat**: 优化了性能和样式
-- **fix**: 修复在移动端导出时尺寸和分页不对的问题
 
 ## License
 
